@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, GestureResponderEvent } from 'react-native'
+import { View, Text, StyleSheet, Pressable, GestureResponderEvent, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import CustomButton from '../components/CustomButton'
 import {
@@ -7,13 +7,16 @@ import {
     MediaType,
   } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import { Typography } from '../../constants/constants';
 
 export default function HomeScreen() {
     const navigation = useNavigation();
+    const [loading, setLoading] = useState(false);
 
-    const [videoPath, setVideoPath] = useState<string | null>(null);
-    const [trimmedVideo, setTrimmedVideo] = useState<string | null>(null);
+    // const [videoPath, setVideoPath] = useState<string | null>(null);
+    // const [trimmedVideo, setTrimmedVideo] = useState<string | null>(null);
   const pickVideo = async () => {
+    setLoading(true);
     const options = {
       mediaType: 'video' as MediaType,
       videoQuality: 'high' as const,
@@ -26,17 +29,29 @@ export default function HomeScreen() {
     //   setTrimmedVideo(null);
       navigation.navigate('VideoScreen', { videoUri });
     }
+
+    setLoading(false);
   };
   return (
-    <View style={styles.container}>
-        <Text style={styles.text}>Video Editor</Text>
+    <View style={[styles.container,{backgroundColor:Typography.Colors.backgroundColor}]}>
+        <Text style={[styles.text,{color:Typography.Colors.white}]}>Video Editor</Text>
         <View>
-            <Text style={styles.heading}>Trim and Merge Videos</Text>
-            <Text style={styles.paragraph}>Easily trim your videos to the perfect length and merge multiple clips into a single masterpiece. Add background music to enhance your videos.</Text>
+            <Text style={[styles.heading,{color:Typography.Colors.white}]}>Trim and Merge Videos</Text>
+            <Text style={[styles.paragraph,{color:Typography.Colors.white}]}>Easily trim your videos to the perfect length and merge multiple clips into a single masterpiece. Add background music to enhance your videos.</Text>
         </View>
-        <View style={styles.button}>
+        {loading ? (
+                <View style={styles.loaderContainer}>
+                    <ActivityIndicator size="large" color={Typography.Colors.white} />
+                    <Text style={{ color: Typography.Colors.white, marginTop: 10 }}>Loading...</Text>
+                </View>
+            ) : (
+                <View style={styles.button}>
+                    <CustomButton title='Pick a Video' onPress={pickVideo} />
+                </View>
+            )}
+        {/* <View style={styles.button}>
             <CustomButton title='Pick a Video' onPress={pickVideo}/>
-        </View>
+        </View> */}
     </View>
   )
 }
@@ -44,25 +59,21 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'#1C2128',
         padding:10
     },
     text:{
-        color:"white",
         fontSize:18,
         paddingTop:16,
         textAlign:'center',
         fontWeight:'bold'
     },
     heading:{
-        color:"white",
         fontSize:28,
         paddingTop:20,
         textAlign:'center',
         fontWeight:'bold'
     },
     paragraph:{
-        color:"white",
         fontSize:16,
         paddingTop:12,
         textAlign:'center',
@@ -72,5 +83,11 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'flex-end',
         paddingBottom:15
+    },
+    loaderContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      paddingBottom:15
     }
 })

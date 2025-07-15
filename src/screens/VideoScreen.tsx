@@ -17,6 +17,7 @@ import RNFS from 'react-native-fs';
 import { FFmpegKit } from 'ffmpeg-kit-react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import { Typography } from '../../constants/constants';
 
 const VideoScreen = ({ route }: { route: any }) => {
   const navigation = useNavigation();
@@ -73,12 +74,12 @@ const VideoScreen = ({ route }: { route: any }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{backgroundColor: Typography.Colors.backgroundColor}]}>
       <View style={styles.heading}>
       <Pressable  onPress={() => navigation.goBack()}>
-        <Icon name="close" size={22} color='white'/>
+        <Icon name="close" size={22} color={Typography.Colors.white}/>
         </Pressable>
-        <Text style={styles.headingText}>Selected Video</Text>
+        <Text style={[styles.headingText,{color:Typography.Colors.white}]}>Selected Video</Text>
         <View/>
       </View>
       <Video
@@ -132,7 +133,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#1C2128',
   },
   heading:{
     flexDirection:'row',
@@ -140,9 +140,7 @@ const styles = StyleSheet.create({
     paddingTop:10
   },
   headingText: {
-    color: 'white',
     fontSize: 18,
-    // paddingTop: 16,
     textAlign: 'center',
     fontWeight: 'bold',
   },

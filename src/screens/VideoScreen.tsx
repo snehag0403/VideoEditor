@@ -20,7 +20,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const VideoScreen = ({ route }: { route: any }) => {
   const navigation = useNavigation();
-
   const { videoUri } = route.params;
   const [sliderValues, setSliderValues] = useState([0, 0]); // default from 0s to 15s
   const [isTrimming, setIsTrimming] = useState(false);

@@ -6,4 +6,7 @@ export const Typography = {
         disableButton :"#808080",
         black:'#000000'
     },
+
+
+    
 }

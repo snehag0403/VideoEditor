@@ -25,19 +25,20 @@ export default function HomeScreen() {
     const result: ImagePickerResponse = await launchImageLibrary(options);
     if (result.assets && result.assets[0].uri) {
       const videoUri = result.assets[0].uri;
+      setLoading(false);
     //   setVideoPath(videoUri);
     //   setTrimmedVideo(null);
       navigation.navigate('VideoScreen', { videoUri });
-    }
+    }else{
 
-    setLoading(false);
+    setLoading(false);}
   };
   return (
-    <View style={[styles.container,{backgroundColor:Typography.Colors.backgroundColor}]}>
-        <Text style={[styles.text,{color:Typography.Colors.white}]}>Video Editor</Text>
+    <View style={styles.container}>
+        <Text style={styles.text}>Video Editor</Text>
         <View>
-            <Text style={[styles.heading,{color:Typography.Colors.white}]}>Trim and Merge Videos</Text>
-            <Text style={[styles.paragraph,{color:Typography.Colors.white}]}>Easily trim your videos to the perfect length and merge multiple clips into a single masterpiece. Add background music to enhance your videos.</Text>
+            <Text style={styles.heading}>Trim and Merge Videos</Text>
+            <Text style={styles.paragraph}>Easily trim your videos to the perfect length and merge multiple clips into a single masterpiece. Add background music to enhance your videos.</Text>
         </View>
         {loading ? (
                 <View style={styles.loaderContainer}>
@@ -48,10 +49,7 @@ export default function HomeScreen() {
                 <View style={styles.button}>
                     <CustomButton title='Pick a Video' onPress={pickVideo} />
                 </View>
-            )}
-        {/* <View style={styles.button}>
-            <CustomButton title='Pick a Video' onPress={pickVideo}/>
-        </View> */}
+            )}s
     </View>
   )
 }
@@ -59,24 +57,28 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        padding:10
+        padding:10,
+        backgroundColor:Typography.Colors.backgroundColor
     },
     text:{
         fontSize:18,
         paddingTop:16,
         textAlign:'center',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        color:Typography.Colors.white
     },
     heading:{
         fontSize:28,
         paddingTop:20,
         textAlign:'center',
-        fontWeight:'bold'
+        fontWeight:'bold',
+        color:Typography.Colors.white
     },
     paragraph:{
         fontSize:16,
         paddingTop:12,
         textAlign:'center',
+        color:Typography.Colors.white
         // fontWeight:'bold'
     },
     button:{

@@ -21,6 +21,7 @@
     "patch-package": "^8.0.0",
     "react": "19.1.0",
     "react-native": "0.80.1",
+    "react-native-circular-progress-indicator": "^4.4.2",
     "react-native-create-thumbnail": "^2.1.1",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.27.1",
